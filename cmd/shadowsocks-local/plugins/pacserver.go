@@ -786,34 +786,40 @@ function FindProxyForURL(url, host) {
 `
 
 func PacServerHandler(w http.ResponseWriter, _ *http.Request) {
-	fmt.Fprint(w, PacScript)
+	_, err := fmt.Fprint(w, PacScript)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
-func loadGfwList() (string, error) {
-	gfwlistFile := fmt.Sprintf("%s/%s", "/Users/luis", "gfwlist.txt")
-	// gfwlistFile := fmt.Sprintf("%s/%s", os.TempDir(), "gfwlist.txt")
+func loadGfwList(gfwlistFile string) (string, error) {
 	if _, err := os.Stat(gfwlistFile); os.IsNotExist(err) {
 		url := "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
 
-		resp, err := http.Get(url)
-		if err != nil {
-			return "", err
+		resp, errGet := http.Get(url)
+		if errGet != nil {
+			return "", errGet
 		}
-		defer resp.Body.Close()
-		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return "", err
+		defer func() {
+			err = resp.Body.Close()
+		}()
+		body, errReadAll := ioutil.ReadAll(resp.Body)
+		if errReadAll != nil {
+			return "", errReadAll
 		}
-		byteGfwList, err := base64.StdEncoding.DecodeString(string(body))
-		err = ioutil.WriteFile(gfwlistFile, byteGfwList, 0644)
-		if err != nil {
-			return "", err
+		byteGfwList, errDecodeString := base64.StdEncoding.DecodeString(string(body))
+		if errDecodeString != nil {
+			return "", errDecodeString
+		}
+		errWriteFile := ioutil.WriteFile(gfwlistFile, byteGfwList, 0644)
+		if errWriteFile != nil {
+			return "", errWriteFile
 		}
 		return string(byteGfwList), nil
 	} else {
-		data, err := ioutil.ReadFile(gfwlistFile)
-		if err != nil {
-			return "", err
+		data, errReadFile := ioutil.ReadFile(gfwlistFile)
+		if errReadFile != nil {
+			return "", errReadFile
 		} else {
 			return string(data), nil
 		}
@@ -821,7 +827,7 @@ func loadGfwList() (string, error) {
 }
 
 func RunPacServer(config *ss.Config) {
-	GfwList, err := loadGfwList()
+	GfwList, err := loadGfwList(config.PacGfwlistFile)
 	if err != nil {
 		log.Fatalf("starting local auto proxy configure http server error: %v\n", err.Error())
 	} else {

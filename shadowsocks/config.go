@@ -18,23 +18,24 @@ import (
 )
 
 type Config struct {
-	Server       interface{} `json:"server"`
-	ServerPort   int         `json:"server_port"`
-	LocalPort    int         `json:"local_port"`
-	LocalAddress string      `json:"local_address"`
-	Password     string      `json:"password"`
-	Method       string      `json:"method"` // encryption method
-	Obfs         string      `json:"obfs"`   // encryption method
-	Auth         bool        `json:"auth"`   // one time auth
-	Daemon       bool        `json:"daemon"` // daemon mode
-	DaemonPid    string      `json:"pid"`
-	DaemonLog    string      `json:"log"`
-	HttpProxy    bool        `json:"http_proxy"`   // http proxy
-	HttpPort     int         `json:"http_port"`    // http proxy
-	Forword      bool        `json:"forward"`      // Forword proxy
-	ForwordPort  int         `json:"forward_port"` // ForwordPort proxy
-	Pac          bool        `json:"pac"`          // pac web
-	PacPort      int         `json:"pac_port"`     // pac web proxy
+	Server         interface{} `json:"server"`
+	ServerPort     int         `json:"server_port"`
+	LocalPort      int         `json:"local_port"`
+	LocalAddress   string      `json:"local_address"`
+	Password       string      `json:"password"`
+	Method         string      `json:"method"` // encryption method
+	Obfs           string      `json:"obfs"`   // encryption method
+	Auth           bool        `json:"auth"`   // one time auth
+	Daemon         bool        `json:"daemon"` // daemon mode
+	DaemonPid      string      `json:"pid"`
+	DaemonLog      string      `json:"log"`
+	HttpProxy      bool        `json:"http_proxy"`       // http proxy
+	HttpPort       int         `json:"http_port"`        // http proxy
+	Forword        bool        `json:"forward"`          // Forword proxy
+	ForwordPort    int         `json:"forward_port"`     // ForwordPort proxy
+	Pac            bool        `json:"pac"`              // pac web
+	PacPort        int         `json:"pac_port"`         // pac web proxy
+	PacGfwlistFile string      `json:"pac_gfwlist_file"` // pac gfwlist file path
 
 	// following options are only used by server
 	PortPassword map[string]string `json:"port_password"`

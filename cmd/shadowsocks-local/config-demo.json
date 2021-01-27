@@ -8,6 +8,9 @@
   "forward": false,
   "forward_port": 8181,
   "password": "password",
+  "pac": true,
+  "pac_port": 8082,
+  "pac_gfwlist_file": "/data/gfwlist.txt",
   "method": "aes-128-cfb",
   "timeout": 600,
   "client_auth": {
