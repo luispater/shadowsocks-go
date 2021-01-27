@@ -1,0 +1,17 @@
+{
+  "server": "192.168.1.1",
+  "server_port": 8988,
+  "local_address": "127.0.0.1",
+  "local_port": 1080,
+  "http_proxy": false,
+  "http_port": 8080,
+  "forward": false,
+  "forward_port": 8181,
+  "password": "password",
+  "method": "aes-128-cfb",
+  "timeout": 600,
+  "client_auth": {
+    "test": "test"
+  },
+  "daemon": true
+}
