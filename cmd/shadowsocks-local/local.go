@@ -407,9 +407,9 @@ func run(listenAddr string) {
 	}
 	log.Printf("starting local socks5 server at %v ...\n", listenAddr)
 	for {
-		conn, err := ln.Accept()
-		if err != nil {
-			log.Println("accept:", err)
+		conn, errAccept := ln.Accept()
+		if errAccept != nil {
+			log.Println("accept:", errAccept)
 			continue
 		}
 		go handleConnection(conn)
