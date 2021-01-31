@@ -788,7 +788,7 @@ function FindProxyForURL(url, host) {
 func PacServerHandler(w http.ResponseWriter, _ *http.Request) {
 	_, err := fmt.Fprint(w, PacScript)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 }
 
